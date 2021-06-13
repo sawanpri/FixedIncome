@@ -9,31 +9,27 @@ public class PubSubHandler {
     public static Logger logger = LoggerFactory.getLogger(PubSubHandler.class);
     public static Hashtable<Topic, List<Subscriber>> subscribers = new Hashtable<>();
 
-    public static void registerSubscriber(Topic t, Subscriber subscriber){
-        if(!subscribers.containsKey(t)){
+    public static void registerSubscriber(Topic topic, Subscriber subscriber){
+        if(!subscribers.containsKey(topic)){
             List<Subscriber> list = new ArrayList<>();
             list.add(subscriber);
-            subscribers.put(t, list);
+            subscribers.put(topic, list);
         }else {
-            subscribers.get(t).add(subscriber);
+            subscribers.get(topic).add(subscriber);
         }
 
     }
 
-    public static void publishMessage(Topic t, List tradeList){
-        logger.info("Message published for topic : "+t.name());
+    /*
+    * Publish message to registered subscribers for specific topic
+    * @topic topic enum value
+    * @tradeList List of trading data to publish
+    * */
+    public static void publishMessage(Topic topic, List tradeList){
         if(!subscribers.isEmpty()) {
-        logger.info("Subscribers registered for topic "+ t.name()+" : "
-                +subscribers.get(t).stream().count());
-            subscribers.get(t).forEach(a -> {
-                new Thread(() -> {
-                    a.notify(tradeList);
+            logger.info("Message published to "+ subscribers.get(topic).stream().count() +" Subscribers registered for topic "+ topic.name());
 
-                }).start();
-                //a.notify(tradeList);
-            });
+            subscribers.get(topic).forEach(sub -> new Thread(() -> sub.notify(tradeList)).start());
         }
     }
-
-
 }

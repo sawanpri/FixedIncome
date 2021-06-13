@@ -61,9 +61,9 @@ class TradeTest extends Specification{
         when:
         Subscriber sub = subList.stream()
                 .filter(a -> a.name.equals("tradeSubscriber1")).findAny().get()
-        List<Trade> trade = sub.largestTradebySizeMap.get("ABC3")
+        List<Trade> trade = sub.largestTradeBySizeMap.get("ABC3")
         then:
-            trade != null
+            trade.size() == 2
             trade.forEach(t -> System.out.println(t.toString()))
     }
 

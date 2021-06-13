@@ -21,6 +21,8 @@ public interface CalculatorService {
             }
         });
 
+
+
         for(Map.Entry entry : map.entrySet()){
             MathContext precision = new MathContext(4);
             BigDecimal count = BigDecimal.valueOf(tradeList.stream().filter(a -> a.symbol.equals(entry.getKey())).count());

@@ -10,7 +10,7 @@ public class Subscriber implements CalculatorService{
 
     public Logger logger= LoggerFactory.getLogger(Subscriber.class);
     private List<Trade> tradeListFinal = new LinkedList<Trade>();
-    private Map<String, List<Trade>> largestTradebySizeMap = new HashMap<>();
+    private Map<String, List<Trade>> largestTradeBySizeMap = new HashMap<>();
     private Map<String, BigDecimal> averagePriceMap = new HashMap<>();
     private Map<String, List<Trade>> tradesByGroupMap = new HashMap<>();
     private String name;
@@ -30,8 +30,8 @@ public class Subscriber implements CalculatorService{
 
     void calculate(){
         logger.info("Calculation started for "+this.name+" at "+ LocalDateTime.now());
-        largestTradebySizeMap = getLargestTradeBySize(tradeListFinal);
-        for(Map.Entry entry: largestTradebySizeMap.entrySet()){
+        largestTradeBySizeMap = getLargestTradeBySize(tradeListFinal);
+        for(Map.Entry entry: largestTradeBySizeMap.entrySet()){
             logger.debug("Subscriber : "+this.name+" Symbol- "+entry.getKey()+" Size- "+entry.getValue().toString());
         }
 
@@ -58,8 +58,8 @@ public class Subscriber implements CalculatorService{
         return tradeListFinal;
     }
 
-    public Map<String, List<Trade>> getLargestTradebySizeMap() {
-        return largestTradebySizeMap;
+    public Map<String, List<Trade>> getLargestTradeBySizeMap() {
+        return largestTradeBySizeMap;
     }
 
     public Map<String, BigDecimal> getAveragePriceMap() {
