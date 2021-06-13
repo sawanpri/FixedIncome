@@ -2,43 +2,85 @@ import com.jeff.domain.PubSubHandler
 import com.jeff.domain.Publisher
 import com.jeff.domain.Subscriber
 import com.jeff.domain.Topic
+import com.jeff.domain.Trade
 import spock.lang.Specification
 
 class TradeTest extends Specification{
 
-    Publisher publisher = new Publisher(Topic.TRADE);
-    def application = Mock(Application)
-    def path = ["src/main/resources/MockTradeData/trade1.json","src/main/resources/MockTradeData/trade2.json",
-                "src/main/resources/MockTradeData/trade3.json"]
 
+    def path = [//"src/main/resources/MockTradeData/trade1.json"
+//                ,"src/main/resources/MockTradeData/trade2.json",
+               "src/main/resources/MockTradeData/trade3.json"
+    ]
 
-
-
-    def "Register Subscribers" (){
-        when: Application.registerSubscribers()
-        then:
-        Hashtable<Topic, List<Subscriber>> map =  PubSubHandler.subscribers
-        map.values().forEach(a -> a.forEach(b ->
-                System.out.println(b.name)))
-        map != null
+    def cleanup() {
+        println('Cleaning up after a test!')
+        PubSubHandler.subscribers = new Hashtable<Topic, List<Subscriber>>();
     }
 
     def "Publish Message"(){
+        given:
+            Publisher publisher = new Publisher(Topic.TRADE);
         when:
+            Application.publishMessage(path, publisher)
+        then:
+            PubSubHandler.subscribers.isEmpty()
+    }
+
+    def "Register Subscribers" (){
+        given:
+            Application.registerSubscribers()
+        when:
+            Hashtable<Topic, List<Subscriber>> map =  PubSubHandler.subscribers
+        then:
+            map != null
+    }
+
+
+
+    def "get average price for given Symbol"(){
+        given:
+            Publisher publisher = new Publisher(Topic.TRADE);
+            List<Subscriber> subList = Application.registerSubscribers();
+            Application.publishMessage(path, publisher)
+        when:
+            Subscriber sub = subList.stream()
+                    .filter(a -> a.name.equals("tradeSubscriber1")).findAny().get()
+            def avgPrice = sub.averagePriceMap.get("XYZ1")
+        then:
+            println(avgPrice)
+            avgPrice == 4720.00
+    }
+
+
+    def "get largest trade by Size for given Symbol"(){
+        given:
+        Publisher publisher = new Publisher(Topic.TRADE);
+        List<Subscriber> subList = Application.registerSubscribers();
         Application.publishMessage(path, publisher)
-        then:
-            PubSubHandler.subscribers == null
-
-    }
-
-    def "Register Subscriber and Publish message"(){
         when:
-        Application.registerSubscribers();
-        Application.publishMessage()
+        Subscriber sub = subList.stream()
+                .filter(a -> a.name.equals("tradeSubscriber1")).findAny().get()
+        List<Trade> trade = sub.largestTradebySizeMap.get("ABC3")
         then:
-        PubSubHandler.subscribers.values().forEach()
+            trade != null
+            trade.forEach(t -> System.out.println(t.toString()))
     }
 
+
+    def "get trades by group for any symbol"(){
+        given:
+        Publisher publisher = new Publisher(Topic.TRADE);
+        List<Subscriber> subList = Application.registerSubscribers();
+        Application.publishMessage(path, publisher)
+        when:
+        Subscriber sub = subList.stream()
+                .filter(a -> a.name.equals("tradeSubscriber1")).findAny().get()
+        List<Trade> trade = sub.getTradesbyGroup(sub.tradeListFinal, "size", "200").get("ABC3")
+        then:
+        trade != null
+        trade.forEach(t -> System.out.println(t.toString()))
+    }
 
 
 }

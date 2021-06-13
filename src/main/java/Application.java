@@ -4,22 +4,24 @@ import com.jeff.domain.Publisher;
 import com.jeff.domain.Subscriber;
 import com.jeff.domain.Topic;
 import com.jeff.domain.Trade;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Application {
+    public static Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
-        List<String> paths = Arrays.asList("src/main/resources/MockTradeData/trade1.json",
-                        "src/main/resources/MockTradeData/trade2.json",
-                        "src/main/resources/MockTradeData/trade3.json"
-        );
-
 
         try {
+            List<String> paths = Arrays.asList("src/main/resources/MockTradeData/trade1.json"
+//                    ,
+//                            "src/main/resources/MockTradeData/trade2.json",
+//                            "src/main/resources/MockTradeData/trade3.json"
+            );
 
             Publisher publisher = new Publisher(Topic.TRADE);
             registerSubscribers();
@@ -35,7 +37,7 @@ public class Application {
         paths.forEach(path->{
             try {
                 List<Trade> tradeData = readJSON(path);
-
+                logger.info("JSON Consumed is "+path);
                 if(tradeData!=null) {
                     publisher.publish(tradeData);
                     Thread.sleep(10000);
@@ -46,10 +48,11 @@ public class Application {
         });
     }
 
-    static void registerSubscribers() {
+    static List<Subscriber> registerSubscribers() {
         Subscriber tradeSubscriber1 = new Subscriber(Topic.TRADE, "tradeSubscriber1");
         Subscriber tradeSubscriber2 = new Subscriber(Topic.TRADE, "tradeSubscriber2");
         Subscriber tradeSubscriber3 = new Subscriber(Topic.TRADE, "tradeSubscriber3");
+        return Arrays.asList(tradeSubscriber1, tradeSubscriber2, tradeSubscriber3);
     }
 
     static List<Trade> readJSON(String path) {

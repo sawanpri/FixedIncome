@@ -12,17 +12,20 @@ repositories {
 
 dependencies {
     //compile group: 'org.json', name: 'json', version: '20180813'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.0'
     compile 'io.reactivex.rxjava2:rxjava:2.0.8'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
+    compile "org.slf4j:slf4j-simple:1.7.9"
 
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.0'
     implementation "org.codehaus.groovy:groovy:3.0.8"
-    testImplementation platform("org.spockframework:spock-bom:2.0-groovy-3.0")
+
     testImplementation "org.spockframework:spock-core"
-    compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    testImplementation platform("org.spockframework:spock-bom:2.0-groovy-3.0")
+
     testCompile 'org.codehaus.groovy:groovy-all:2.3.11'
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    testImplementation platform("org.spockframework:spock-bom:2.0-M3-groovy-2.5")
+
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
