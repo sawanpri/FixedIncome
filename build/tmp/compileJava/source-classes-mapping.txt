@@ -2,12 +2,12 @@ com/jeff/domain/Trade.java
  com.jeff.domain.Trade
 com/jeff/domain/Topic.java
  com.jeff.domain.Topic
+Application.java
+ Application
+ Application$1
+com/jeff/domain/PubSubHandler.java
+ com.jeff.domain.PubSubHandler
 com/jeff/domain/Publisher.java
  com.jeff.domain.Publisher
 com/jeff/domain/Subscriber.java
  com.jeff.domain.Subscriber
-com/jeff/domain/PubSubHandler.java
- com.jeff.domain.PubSubHandler
-Application.java
- Application
- Application$1

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TradeTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2021-06-13T16:57:15" hostname="CPX-3L63211N9H5" time="0.067">
+  <properties/>
+  <testcase name="Publish Message" classname="TradeTest" time="0.067">
+    <failure message="groovy.lang.MissingMethodException: No signature of method: static Application.publishMessage() is applicable for argument types: (ArrayList, com.jeff.domain.Publisher) values: [[TradeTest$__spock_feature_0_1_closure2@5226a5b3], com.jeff.domain.Publisher@16f8ad74]" type="groovy.lang.MissingMethodException">groovy.lang.MissingMethodException: No signature of method: static Application.publishMessage() is applicable for argument types: (ArrayList, com.jeff.domain.Publisher) values: [[TradeTest$__spock_feature_0_1_closure2@5226a5b3], com.jeff.domain.Publisher@16f8ad74]
+	at TradeTest.Publish Message(TradeTest.groovy:27)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
