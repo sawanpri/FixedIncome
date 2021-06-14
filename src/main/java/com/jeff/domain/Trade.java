@@ -7,6 +7,9 @@ import java.sql.Timestamp;
 
 @Immutable
 public class Trade {
+    public int getSize() {
+        return size;
+    }
 
     public Timestamp timestamp;
     public BigDecimal price;

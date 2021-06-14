@@ -1,4 +1,3 @@
-import com.jeff.domain.PubSubHandler
 import com.jeff.domain.Publisher
 import com.jeff.domain.Subscriber
 import com.jeff.domain.Topic

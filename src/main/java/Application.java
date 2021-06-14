@@ -4,6 +4,7 @@ import com.jeff.domain.Publisher;
 import com.jeff.domain.Subscriber;
 import com.jeff.domain.Topic;
 import com.jeff.domain.Trade;
+import io.reactivex.Observable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,53 +16,21 @@ public class Application {
     public static Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
+        String[] paths ={"src/main/resources/MockTradeData/trade1.json",
+                "src/main/resources/MockTradeData/trade2.json",
+                "src/main/resources/MockTradeData/trade3.json"};
+
+        Observable<List<Trade>> publisher = new Publisher().getPublisher(paths);
 
         try {
-            List<String> paths = Arrays.asList("src/main/resources/MockTradeData/trade1.json"
-//                    ,
-//                            "src/main/resources/MockTradeData/trade2.json",
-//                            "src/main/resources/MockTradeData/trade3.json"
-            );
+            new Subscriber(publisher,"instance 1");
+            new Subscriber(publisher,"instance 2");
+            new Subscriber(publisher,"instance 3");
 
-            Publisher publisher = new Publisher(Topic.TRADE);
-            registerSubscribers();
-            publishMessage(paths, publisher);
+            publisher.blockingLast();
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    static void publishMessage(List<String> paths, Publisher publisher) {
-
-        paths.forEach(path->{
-            try {
-                List<Trade> tradeData = readJSON(path);
-                logger.info("JSON Consumed is "+path);
-                if(tradeData!=null) {
-                    publisher.publish(tradeData);
-                    Thread.sleep(10000);
-                }
-            } catch (InterruptedException e) {
-                    e.printStackTrace();
-            }
-        });
-    }
-
-    static List<Subscriber> registerSubscribers() {
-        Subscriber tradeSubscriber1 = new Subscriber(Topic.TRADE, "tradeSubscriber1");
-        Subscriber tradeSubscriber2 = new Subscriber(Topic.TRADE, "tradeSubscriber2");
-        Subscriber tradeSubscriber3 = new Subscriber(Topic.TRADE, "tradeSubscriber3");
-        return Arrays.asList(tradeSubscriber1, tradeSubscriber2, tradeSubscriber3);
-    }
-
-    static List<Trade> readJSON(String path) {
-        try{
-            return new ObjectMapper().readValue(Paths.get(path).toAbsolutePath().toFile(), new TypeReference<List<Trade>>(){});
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 }

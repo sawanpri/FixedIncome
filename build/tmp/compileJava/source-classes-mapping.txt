@@ -2,14 +2,12 @@ com/jeff/domain/Topic.java
  com.jeff.domain.Topic
 com/jeff/domain/Trade.java
  com.jeff.domain.Trade
-com/jeff/domain/CalculatorService.java
- com.jeff.domain.CalculatorService
 Application.java
  Application
- Application$1
-com/jeff/domain/PubSubHandler.java
- com.jeff.domain.PubSubHandler
 com/jeff/domain/Publisher.java
  com.jeff.domain.Publisher
+ com.jeff.domain.Publisher$1
 com/jeff/domain/Subscriber.java
  com.jeff.domain.Subscriber
+com/jeff/domain/CalculatorService.java
+ com.jeff.domain.CalculatorService
