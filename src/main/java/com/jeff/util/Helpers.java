@@ -1,21 +1,25 @@
-package com.jeff.domain;
+package com.jeff.util;
+
+import com.jeff.domain.Trade;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.math.MathContext;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Helpers {
+    final static MathContext precision = new MathContext(4);
 
-    public static Double average(final List<Trade> list, final Function<Trade, BigDecimal> func) {
+
+    public static BigDecimal average(final List<Trade> list, final Function<Trade, BigDecimal> func) {
         BigDecimal sum = sum(list, func);
         if (sum == null) {
             return null;
         }
-        return sum.doubleValue() / list.size();
+
+        return sum.divide(BigDecimal.valueOf(list.size()),4, BigDecimal.ROUND_UP);
     }
 
     public static BigDecimal sum(final List<Trade> list, final Function<Trade, BigDecimal> func) {
@@ -37,4 +41,5 @@ public class Helpers {
     public static String pluck(final Trade trade, String propertyName) throws NoSuchFieldException, IllegalAccessException {
         return trade.getClass().getField(propertyName).get(trade).toString();
     }
+
 }

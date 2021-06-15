@@ -1,13 +1,17 @@
-package com.jeff.domain;
+package com.jeff.service;
 
+import com.jeff.domain.Topic;
+import com.jeff.domain.Trade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.*;
+import java.util.concurrent.*;
 
 public class PubSubHandler {
 
-    public static Logger logger = LoggerFactory.getLogger(PubSubHandler.class);
-    public static Hashtable<Topic, List<Subscriber>> subscribers = new Hashtable<>();
+    private static Logger logger = LoggerFactory.getLogger(PubSubHandler.class);
+    private static ExecutorService executor = Executors.newFixedThreadPool(1);
+    static Hashtable<Topic, List<Subscriber>> subscribers = new Hashtable<>();
 
     public static void registerSubscriber(Topic topic, Subscriber subscriber){
         if(!subscribers.containsKey(topic)){
@@ -25,11 +29,15 @@ public class PubSubHandler {
     * @topic topic enum value
     * @tradeList List of trading data to publish
     * */
-    public static void publishMessage(Topic topic, List tradeList){
+    public static void publishMessage(Topic topic, List<Trade> tradeList) {
         if(!subscribers.isEmpty()) {
             logger.info("Message published to "+ subscribers.get(topic).stream().count() +" Subscribers registered for topic "+ topic.name());
-
             subscribers.get(topic).forEach(sub -> new Thread(() -> sub.notify(tradeList)).start());
         }
+
+    }
+
+    public static Hashtable<Topic, List<Subscriber>> getSubscribers() {
+        return subscribers;
     }
 }

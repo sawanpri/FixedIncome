@@ -1,17 +1,17 @@
+com/jeff/util/Helpers.java
+ com.jeff.util.Helpers
+com/jeff/util/CalculatorService.java
+ com.jeff.util.CalculatorService
 com/jeff/domain/Topic.java
  com.jeff.domain.Topic
 com/jeff/domain/Trade.java
  com.jeff.domain.Trade
-com/jeff/domain/Publisher.java
- com.jeff.domain.Publisher
+com/jeff/service/PubSubHandler.java
+ com.jeff.service.PubSubHandler
 Application.java
  Application
  Application$1
-com/jeff/domain/PubSubHandler.java
- com.jeff.domain.PubSubHandler
-com/jeff/domain/Subscriber.java
- com.jeff.domain.Subscriber
-com/jeff/domain/Helpers.java
- com.jeff.domain.Helpers
-com/jeff/domain/CalculatorService.java
- com.jeff.domain.CalculatorService
+com/jeff/service/Subscriber.java
+ com.jeff.service.Subscriber
+com/jeff/service/Publisher.java
+ com.jeff.service.Publisher

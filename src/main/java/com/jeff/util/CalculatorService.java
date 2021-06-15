@@ -1,7 +1,8 @@
-package com.jeff.domain;
+package com.jeff.util;
+
+import com.jeff.domain.Trade;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +12,10 @@ public interface CalculatorService {
 
     default Map<String, BigDecimal> getAveragePriceForSymbol(List<Trade> tradeList) {
         Map<String, BigDecimal> averagePriceMap = new HashMap<>();
-        MathContext precision = new MathContext(4);
 
         tradeList.stream().collect(Collectors.groupingBy(trade -> trade.symbol))
                 .forEach((symbol, tradesGroup) -> {
-                    averagePriceMap.put(symbol, new BigDecimal(Helpers.average(tradesGroup, trade -> trade.price), precision));
+                    averagePriceMap.put(symbol, Helpers.average(tradesGroup, trade -> trade.price));
                 });
 
         return averagePriceMap;

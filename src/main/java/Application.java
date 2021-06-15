@@ -1,6 +1,8 @@
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jeff.domain.*;
+import com.jeff.service.Publisher;
+import com.jeff.service.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +16,9 @@ public class Application {
     public static void main(String[] args) {
 
         try {
-            List<String> paths = Arrays.asList("src/main/resources/MockTradeData/trade1.json"
-//                    ,
-//                            "src/main/resources/MockTradeData/trade2.json",
-//                            "src/main/resources/MockTradeData/trade3.json"
-            );
+            List<String> paths = Arrays.asList("src/main/resources/MockTradeData/trade1.json",
+                            "src/main/resources/MockTradeData/trade2.json",
+                            "src/main/resources/MockTradeData/trade3.json");
 
             Publisher publisher = new Publisher(Topic.TRADE);
             registerSubscribers();
@@ -30,17 +30,19 @@ public class Application {
     }
 
     static void publishMessage(List<String> paths, Publisher publisher) {
-
         paths.forEach(path->{
             try {
                 List<Trade> tradeData = readJSON(path);
                 logger.info("JSON Consumed is "+path);
                 if(tradeData!=null) {
                     publisher.publish(tradeData);
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                 }
             } catch (InterruptedException e) {
                     e.printStackTrace();
+            }
+            catch (Exception e){
+                e.printStackTrace();
             }
         });
     }

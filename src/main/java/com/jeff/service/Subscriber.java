@@ -1,5 +1,8 @@
-package com.jeff.domain;
+package com.jeff.service;
 
+import com.jeff.domain.Topic;
+import com.jeff.domain.Trade;
+import com.jeff.util.CalculatorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
