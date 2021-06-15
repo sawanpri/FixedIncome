@@ -12,7 +12,6 @@ repositories {
 
 dependencies {
     //compile group: 'org.json', name: 'json', version: '20180813'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.8'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
     compile "org.slf4j:slf4j-simple:1.7.9"
 

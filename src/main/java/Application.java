@@ -1,9 +1,6 @@
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jeff.domain.Publisher;
-import com.jeff.domain.Subscriber;
-import com.jeff.domain.Topic;
-import com.jeff.domain.Trade;
+import com.jeff.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +49,7 @@ public class Application {
         Subscriber tradeSubscriber1 = new Subscriber(Topic.TRADE, "tradeSubscriber1");
         Subscriber tradeSubscriber2 = new Subscriber(Topic.TRADE, "tradeSubscriber2");
         Subscriber tradeSubscriber3 = new Subscriber(Topic.TRADE, "tradeSubscriber3");
+
         return Arrays.asList(tradeSubscriber1, tradeSubscriber2, tradeSubscriber3);
     }
 

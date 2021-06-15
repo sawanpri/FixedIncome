@@ -46,10 +46,10 @@ class TradeTest extends Specification{
         when:
             Subscriber sub = subList.stream()
                     .filter(a -> a.name.equals("tradeSubscriber1")).findAny().get()
-            def avgPrice = sub.averagePriceMap.get("XYZ1")
+            def avgPrice = sub.averagePriceMap.get("ABC3")
         then:
             println(avgPrice)
-            avgPrice == 4720.00
+            avgPrice == 199
     }
 
 
@@ -76,7 +76,7 @@ class TradeTest extends Specification{
         when:
         Subscriber sub = subList.stream()
                 .filter(a -> a.name.equals("tradeSubscriber1")).findAny().get()
-        List<Trade> trade = sub.getTradesbyGroup(sub.tradeListFinal, "size", "200").get("ABC3")
+        List<Trade> trade = sub.getTradesByGroup(sub.tradeListFinal, "size", "200").get("ABC3")
         then:
         trade != null
         trade.forEach(t -> System.out.println(t.toString()))
