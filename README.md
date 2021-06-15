@@ -1,6 +1,6 @@
 # **Fixed Income Trade Processing**
 
-###Description:
+### Description:
 This java project is created to process stream of trades published by Publisher.
 
 ### Design pattern:
