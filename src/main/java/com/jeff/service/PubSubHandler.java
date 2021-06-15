@@ -5,12 +5,10 @@ import com.jeff.domain.Trade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.*;
-import java.util.concurrent.*;
 
 public class PubSubHandler {
 
     private static Logger logger = LoggerFactory.getLogger(PubSubHandler.class);
-    private static ExecutorService executor = Executors.newFixedThreadPool(1);
     static Hashtable<Topic, List<Subscriber>> subscribers = new Hashtable<>();
 
     public static void registerSubscriber(Topic topic, Subscriber subscriber){
