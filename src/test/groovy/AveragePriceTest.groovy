@@ -7,46 +7,54 @@ import spock.lang.Specification
 class AveragePriceTest extends Specification {
 
     def "get average price for given Symbol"(){
+        println("Started test : get average price for given Symbol()")
         given:
-        Publisher publisher = new Publisher(Topic.TRADE);
-        List<Subscriber> subList = Application.registerSubscribers();
+            Publisher publisher = new Publisher(Topic.TRADE)
+            List<Subscriber> subList = Application.registerSubscribers()
         when:
-        def path = ["src/main/resources/MockTradeData/trade3.json"]
-
-        Application.publishMessage(path, publisher)
-        Subscriber sub = subList.stream()
-                .filter(a -> a.name.equals("tradeSubscriber1")).findAny().get()
-        def avgPrice = sub.averagePriceMap.get("ABC3")
+            def path = ["src/main/resources/MockTradeData/trade3.json"]
+            Application.publishMessage(path, publisher)
+            Subscriber sub = subList.stream()
+                    .filter(a -> a.name.equals("tradeSubscriber1"))
+                    .findAny().get()
+            def avgPrice = sub.averagePriceMap.get("ABC3")
         then:
-        println(avgPrice)
-        avgPrice == 199
+            println(avgPrice)
+            avgPrice == 199
 
         when:
-        def path1 = ["src/main/resources/MockTradeData/trade1.json"]
-        Application.publishMessage(path1, publisher)
-
-        Subscriber sub1 = subList.stream()
-                .filter(a -> a.name.equals("tradeSubscriber1")).findAny().get()
-        def avgPrice1 = sub1.averagePriceMap.get("ABC3")
+            def path1 = ["src/main/resources/MockTradeData/trade1.json"]
+            Application.publishMessage(path1, publisher)
+            Subscriber sub1 = subList.stream()
+                    .filter(a -> a.name.equals("tradeSubscriber1"))
+                    .findAny().get()
+            def avgPrice1 = sub1.averagePriceMap.get("ABC3")
         then:
-        println(avgPrice1)
-        avgPrice1 == 258.6667
+            println(avgPrice1)
+            avgPrice1 == 258.6667
+            println("Completed test : get average price for given Symbol()")
+
     }
 
     def "get average price for non existing Symbol"(){
-        given:
-        Publisher publisher = new Publisher(Topic.TRADE);
-        List<Subscriber> subList = Application.registerSubscribers();
-        when:
-        def path = ["src/main/resources/MockTradeData/trade3.json"]
+        println("Started test : get average price for non existing Symbol()")
 
-        Application.publishMessage(path, publisher)
-        Subscriber sub = subList.stream()
-                .filter(a -> a.name.equals("tradeSubscriber1")).findAny().get()
-        def avgPrice = sub.averagePriceMap.get("GHT4")
+        given:
+            Publisher publisher = new Publisher(Topic.TRADE)
+            List<Subscriber> subList = Application.registerSubscribers()
+
+        when:
+            def path = ["src/main/resources/MockTradeData/trade3.json"]
+            Application.publishMessage(path, publisher)
+            Subscriber sub = subList.stream()
+                    .filter(a -> a.name.equals("tradeSubscriber1"))
+                    .findAny().get()
+            def avgPrice = sub.averagePriceMap.get("GHT4")
         then:
-        println(avgPrice)
-        avgPrice == null
+            println(avgPrice)
+            avgPrice == null
+            println("Completed test : get average price for non existing Symbol()")
+
     }
 
     def cleanup() {

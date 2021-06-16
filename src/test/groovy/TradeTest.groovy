@@ -7,6 +7,8 @@ import spock.lang.Specification
 class TradeTest extends Specification{
 
     def "Publish Message"(){
+        println("Started test : Publish Message()")
+
         given:
         def path = ["src/main/resources/MockTradeData/trade1.json"
               ,"src/main/resources/MockTradeData/trade2.json",
@@ -16,15 +18,22 @@ class TradeTest extends Specification{
             Application.publishMessage(path, publisher)
         then:
             PubSubHandler.subscribers.isEmpty()
+            println("Completed test : Publish Message()")
+
     }
 
     def "Register Subscribers" (){
+        println("Started test : Register Subscribers()")
+
         given:
             Application.registerSubscribers()
         when:
             Hashtable<Topic, List<Subscriber>> map =  PubSubHandler.getSubscribers()
         then:
             map != null
+
+        println("Completed test : Register Subscribers()")
+
     }
 
     def cleanup() {

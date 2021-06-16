@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TradeTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-06-15T22:36:28" hostname="CPX-3L63211N9H5" time="15.073">
+<testsuite name="TradeTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-06-15T23:59:56" hostname="CPX-3L63211N9H5" time="15.055">
   <properties/>
-  <testcase name="Publish Message" classname="TradeTest" time="15.069"/>
-  <testcase name="Register Subscribers" classname="TradeTest" time="0.004"/>
-  <system-out><![CDATA[Cleaning up after a test!
+  <testcase name="Publish Message" classname="TradeTest" time="15.053"/>
+  <testcase name="Register Subscribers" classname="TradeTest" time="0.002"/>
+  <system-out><![CDATA[Started test : Publish Message()
+Completed test : Publish Message()
+Cleaning up after a test!
+Started test : Register Subscribers()
+Completed test : Register Subscribers()
 Cleaning up after a test!
 ]]></system-out>
   <system-err><![CDATA[[Test worker] INFO Application - JSON Consumed is src/main/resources/MockTradeData/trade1.json

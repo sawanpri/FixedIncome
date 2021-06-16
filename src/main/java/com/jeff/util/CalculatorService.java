@@ -15,7 +15,7 @@ public interface CalculatorService {
 
         tradeList.stream().collect(Collectors.groupingBy(trade -> trade.symbol))
                 .forEach((symbol, tradesGroup) -> {
-                    averagePriceMap.put(symbol, Helpers.average(tradesGroup, trade -> trade.price));
+                    averagePriceMap.put(symbol, Helper.average(tradesGroup, trade -> trade.price));
                 });
 
         return averagePriceMap;
@@ -26,8 +26,8 @@ public interface CalculatorService {
 
         tradeList.stream().collect(Collectors.groupingBy(trade -> trade.symbol))
                 .forEach((symbol, tradesGroup) -> {
-                    Trade maxTrade = Helpers.max(tradesGroup, trade -> trade.size);
-                    tradeBySizeMap.put(symbol, Helpers.maxAll(tradesGroup, trade -> trade.size == maxTrade.size));
+                    Trade maxTrade = Helper.max(tradesGroup, trade -> trade.size);
+                    tradeBySizeMap.put(symbol, Helper.maxAll(tradesGroup, trade -> trade.size == maxTrade.size));
                 });
 
         return tradeBySizeMap;
@@ -36,7 +36,7 @@ public interface CalculatorService {
     default Map<String, List<Trade>> getTradesByGroup(List<Trade> tradeList, String column, String value) {
         List<Trade> filteredList = tradeList.stream().filter(trade -> {
             try {
-                return Helpers.pluck(trade, column).equals(value);
+                return Helper.pluck(trade, column).equals(value);
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;

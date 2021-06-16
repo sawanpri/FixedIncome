@@ -1,17 +1,13 @@
 package com.jeff.util;
 
 import com.jeff.domain.Trade;
-
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Helpers {
-    final static MathContext precision = new MathContext(4);
-
+public class Helper {
 
     public static BigDecimal average(final List<Trade> list, final Function<Trade, BigDecimal> func) {
         BigDecimal sum = sum(list, func);
